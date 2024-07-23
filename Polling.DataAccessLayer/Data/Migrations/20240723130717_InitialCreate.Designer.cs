@@ -12,7 +12,7 @@ using Polling.DataAccessLayer.Data;
 namespace Polling.DataAccessLayer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240723104323_InitialCreate")]
+    [Migration("20240723130717_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />

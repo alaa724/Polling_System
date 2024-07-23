@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Polling.DataAccessLayer.Data;
+using Polling.DataAccessLayer.Models;
 
 namespace PollingSystem
 {
@@ -17,6 +18,25 @@ namespace PollingSystem
             {
                 object value = options.UseSqlServer(webApplicationBuilder.Configuration.GetConnectionString("DefaultConnection"));
             });
+            webApplicationBuilder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            {
+                options.Password.RequiredUniqueChars = 2;
+                options.Password.RequireDigit = true;
+                options.Password.RequireNonAlphanumeric = true; // @#$
+                options.Password.RequireLowercase = true;
+                options.Password.RequireUppercase = true;
+                options.Password.RequiredLength = 6;
+
+                //options.User.AllowedUserNameCharacters = "asdfg12345@"
+                options.User.RequireUniqueEmail = true;
+
+                options.Lockout.AllowedForNewUsers = true;
+                options.Lockout.MaxFailedAccessAttempts = 3;
+                options.Lockout.DefaultLockoutTimeSpan = TimeSpan.FromDays(5);
+
+
+            })
+                .AddEntityFrameworkStores<ApplicationDbContext>();
 
 
 
