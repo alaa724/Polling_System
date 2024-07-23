@@ -1,0 +1,22 @@
+﻿@model List<Answer>
+
+@{
+    ViewData["Title"] = "Answer Index";
+}
+
+<h1>Answers</h1>
+<br />
+
+<table class ="mt-4 table table-striped table-hover" >
+    <tr>
+        <th>Question</th>
+        <th>Answer Text</th>
+    </tr>
+    @foreach (var answer in Model)
+    {
+        <tr>
+            <td>@answer.Questions.Text</td>
+            <td>@answer.Text</td>
+        </tr>
+    }
+</table>
