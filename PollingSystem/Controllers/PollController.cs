@@ -1,4 +1,5 @@
 ﻿using DataAccessLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Polling.DataAccessLayer.Data;
@@ -6,6 +7,7 @@ using PollingSystem.ViewModels;
 
 namespace PollingSystem.Controllers
 {
+    
     public class PollController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
@@ -16,6 +18,7 @@ namespace PollingSystem.Controllers
         }
 
         // GET: Poll/Create
+        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
