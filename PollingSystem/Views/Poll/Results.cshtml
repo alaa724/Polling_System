@@ -1,0 +1,20 @@
+﻿
+@model List<Poll>
+
+@{
+    ViewData["Title"] = "Poll Results ";
+}
+
+<h1> Poll Results : </h1>
+
+@foreach (var poll in Model)
+{
+    <h3>@poll.Title</h3>
+    <ul>
+        @foreach (var question in poll.Questions)
+        {
+            <li>@question.Text</li>
+        }
+    </ul>
+}
+

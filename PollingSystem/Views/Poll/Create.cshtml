@@ -1,0 +1,21 @@
+﻿@model Poll
+
+@{
+    ViewData["Title"] = "Create Poll";
+}
+
+<h1>Create Poll</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Title)
+        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Title)
+    </div>
+
+    <input type="submit" value="Create" class="btn btn-primary" />
+}
+
