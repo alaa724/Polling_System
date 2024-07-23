@@ -1,0 +1,23 @@
+﻿@model Question
+
+@{
+    ViewData["Title"] = "Add Question To Poll";
+}
+
+<h1>Add Question To Poll</h1>
+
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+
+    @Html.HiddenFor(model => model.PollId)
+
+    <div class="form-group">
+        @Html.LabelFor(model => model.Text)
+        @Html.TextBoxFor(model => model.Text, new { @class = "form-control" })
+        @Html.ValidationMessageFor(model => model.Text)
+    </div>
+
+    <input type="submit" value="Add" class="btn btn-primary" />
+}
+
