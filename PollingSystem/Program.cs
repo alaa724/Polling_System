@@ -43,29 +43,18 @@ namespace PollingSystem
 
 
             })
-                .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+              .AddEntityFrameworkStores<ApplicationDbContext>();
 
+            // Configure authentication
             webApplicationBuilder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Account/SignIn";
-                options.ExpireTimeSpan = TimeSpan.FromDays(1);
-                options.AccessDeniedPath = "/Home/Error";
-
+                options.AccessDeniedPath = "/Account/AccessDenied";
+                options.Cookie.HttpOnly = true;
+                options.Cookie.SameSite = SameSiteMode.Strict;
+                options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
+                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
             });
-
-
-            webApplicationBuilder.Services.AddAuthentication(options =>
-            {
-
-            })
-                .AddCookie("Polling", options =>
-                {
-                    options.LoginPath = "Account/SignIn";
-                    options.ExpireTimeSpan = TimeSpan.FromDays(1);
-                    options.AccessDeniedPath = "/Home/Error";
-
-                });
-
 
 
             #endregion
