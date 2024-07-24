@@ -1,0 +1,16 @@
+﻿@model IEnumerable<Question>
+
+<h1>Questions</h1>
+<br />
+
+<table class="table">
+    <tr>
+        <th>Question Text</th>
+    </tr>
+    @foreach (var question in Model)
+    {
+        <tr>
+            <td>@question.Text</td>
+        </tr>
+    }
+</table>
