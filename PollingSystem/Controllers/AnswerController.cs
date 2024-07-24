@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using DataAccessLayer.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Polling.DataAccessLayer.Data;
 using Polling.DataAccessLayer.Models;
@@ -14,11 +15,30 @@ namespace PollingSystem.Controllers
             _dbContext = dbContext;
         }
 
-        // GET: Answer/Index
-        public ActionResult Index()
+       
+        // GET: Answers/Create
+        public ActionResult Create(int questionId)
         {
-            var answers = _dbContext.Answers.Include(a => a.Questions).ToList();
-            return View(answers);
+            var answer = new Answer { QuestionId = questionId };
+            return View(answer);
+        }
+
+        // POST: Answers/Create
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Create(Answer answer)
+        {
+            if (ModelState.IsValid)
+            {
+                _dbContext.Answers.Add(answer);
+                _dbContext.SaveChanges();
+                return RedirectToAction("Index", "Questions", new 
+                { 
+                    pollId = _dbContext.Questions.Find(answer.QuestionId).PollId 
+                });
+            }
+
+            return View(answer);
         }
     }
 }

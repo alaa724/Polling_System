@@ -1,10 +1,12 @@
 ﻿using DataAccessLayer.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Polling.DataAccessLayer.Data;
 
 namespace PollingSystem.Controllers
 {
+    [Authorize(Roles = "Administrator")]
     public class QuestionController : Controller
     {
         private readonly ApplicationDbContext _dbContext;

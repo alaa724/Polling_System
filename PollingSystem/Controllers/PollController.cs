@@ -7,7 +7,7 @@ using PollingSystem.ViewModels;
 
 namespace PollingSystem.Controllers
 {
-    
+    [Authorize(Roles = "Administrator")]
     public class PollController : Controller
     {
         private readonly ApplicationDbContext _dbContext;
@@ -25,7 +25,6 @@ namespace PollingSystem.Controllers
         }
 
         // GET: Poll/Create
-        [Authorize(Roles = "Administrator")]
         public ActionResult Create()
         {
             return View();
