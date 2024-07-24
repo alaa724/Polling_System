@@ -30,6 +30,5 @@ namespace PollingSystem.ViewModels
         [Compare(nameof(Password), ErrorMessage = "confirm password dosen't match the password")]
         public string ConfirmPassword { get; set; }
 
-        public bool IsAgree { get; set; }
     }
 }

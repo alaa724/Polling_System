@@ -39,9 +39,9 @@ namespace PollingSystem.Controllers
                 {
                     user = new ApplicationUser()
                     {
+                        UserName = model.UserName,
                         FName = model.FirstName,
                         LName = model.LastName,
-                        UserName = model.UserName,
                         Email = model.Email
                     };
 

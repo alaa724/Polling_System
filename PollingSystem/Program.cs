@@ -2,6 +2,8 @@ using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Polling.DataAccessLayer.Data;
 using Polling.DataAccessLayer.Models;
+using PollingSystem.Extensions;
+using PollingSystem.Helpers;
 
 namespace PollingSystem
 {
@@ -18,6 +20,11 @@ namespace PollingSystem
             {
                 object value = options.UseSqlServer(webApplicationBuilder.Configuration.GetConnectionString("DefaultConnection"));
             });
+
+            webApplicationBuilder.Services.ApplicationServices(); // Extention Method
+
+            webApplicationBuilder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
+
             webApplicationBuilder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
             {
                 options.Password.RequiredUniqueChars = 2;
@@ -37,6 +44,27 @@ namespace PollingSystem
 
             })
                 .AddEntityFrameworkStores<ApplicationDbContext>().AddDefaultTokenProviders();
+
+            webApplicationBuilder.Services.ConfigureApplicationCookie(options =>
+            {
+                options.LoginPath = "/Account/SignIn";
+                options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                options.AccessDeniedPath = "/Home/Error";
+
+            });
+
+
+            webApplicationBuilder.Services.AddAuthentication(options =>
+            {
+
+            })
+                .AddCookie("Polling", options =>
+                {
+                    options.LoginPath = "Account/SignIn";
+                    options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                    options.AccessDeniedPath = "/Home/Error";
+
+                });
 
 
 

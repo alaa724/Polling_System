@@ -2,20 +2,28 @@
 
 @{
     ViewData["Title"] = "Create Poll";
+
 }
 
-<h1>Create Poll</h1>
+<h1>Create New Poll</h1>
 
-@using (Html.BeginForm())
-{
-    @Html.AntiForgeryToken()
+<br />
+<br />
+<form asp-action="Create" enctype="multipart/form-data">
 
     <div class="form-group">
-        @Html.LabelFor(model => model.Title)
-        @Html.TextBoxFor(model => model.Title, new { @class = "form-control" })
-        @Html.ValidationMessageFor(model => model.Title)
+        <label class="col-form-label" asp-for="Title"></label>
+        <input asp-for="Title" class="form-control" />
+        <span asp-validation-for="Title" class="text-danger"></span>
     </div>
 
-    <input type="submit" value="Create" class="btn btn-primary" />
+    <input type="submit" value="Create" class="btn btn-primary" /> |
+    <a asp-action="Index" class="btn btn-light">Back To List</a>
+
+</form>
+
+
+@section ValidationScriptsSection {
+    <partial name="_ValidationScriptsPartial" />
 }
 

@@ -19,6 +19,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Polling.BusinessLogicLayer\Polling.BusinessLogicLayer.csproj" />
     <ProjectReference Include="..\Polling.DataAccessLayer\Polling.DataAccessLayer.csproj" />
   </ItemGroup>
 

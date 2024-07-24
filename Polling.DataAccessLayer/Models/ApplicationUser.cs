@@ -9,7 +9,9 @@ namespace Polling.DataAccessLayer.Models
 {
     public class ApplicationUser : IdentityUser
     {
+        public string UserName { get; set; }
         public string FName { get; set; }
         public string LName { get; set; }
+        public string Email { get; set; }
     }
 }
