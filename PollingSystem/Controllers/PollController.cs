@@ -17,6 +17,13 @@ namespace PollingSystem.Controllers
             _dbContext = dbContext;
         }
 
+        // GET: Poll
+        public ActionResult Index()
+        {
+            var polls = _dbContext.Polls.ToList();
+            return View(polls);
+        }
+
         // GET: Poll/Create
         [Authorize(Roles = "Administrator")]
         public ActionResult Create()
@@ -33,17 +40,43 @@ namespace PollingSystem.Controllers
             {
                 _dbContext.Polls.Add(poll);
                 _dbContext.SaveChanges();
-                return RedirectToAction("Index", "Home"); // Redirect to home page or desired action
+                return RedirectToAction("Index", "Home"); // Redirect to home page 
             }
 
             return View(poll);
         }
 
-        // GET: Poll/Results
-        public ActionResult Results()
+        // GET: Poll/AddQuestions/2
+        public ActionResult AddQustions(int id)
         {
-            var polls = _dbContext.Polls.Include(p => p.Questions).ToList();
-            return View(polls);
+            var poll = _dbContext.Polls.Find(id);
+            if (poll == null)
+                return NotFound();
+
+            return View(poll);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddQuestions(int id, List<Question> questions)
+        {
+            if (ModelState.IsValid)
+            {
+                var poll = _dbContext.Polls.Find(id);
+                if (poll == null)
+                    return NotFound();
+
+                foreach (var question in questions)
+                {
+                    poll.Questions.Add(question);
+                }
+
+                _dbContext.SaveChanges();
+
+                return RedirectToAction("Index");
+            }
+
+            return View();
         }
     }
 }

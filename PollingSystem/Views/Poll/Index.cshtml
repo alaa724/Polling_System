@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Poll>
+
+<table class="table">
+    <tr>
+        <th>Title</th>
+        <th>Actions</th>
+    </tr>
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>@item.Title</td>
+            <td>
+                @Html.ActionLink("View Questions", "AddQuestions", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
+            </td>
+        </tr>
+    }
+</table>
