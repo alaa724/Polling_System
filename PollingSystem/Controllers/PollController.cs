@@ -2,80 +2,60 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Polling.BusinessLogicLayer.ServicesContract;
 using Polling.DataAccessLayer.Data;
 using PollingSystem.ViewModels;
 
 namespace PollingSystem.Controllers
 {
-    [Authorize(Roles = "Administrator")]
     public class PollController : Controller
     {
-        private readonly ApplicationDbContext _dbContext;
 
-        public PollController(ApplicationDbContext dbContext)
+        private readonly IPollService _pollService;
+        private readonly ILogger<PollController> _logger;
+
+        public PollController(IPollService pollService,
+            ILogger<PollController> logger)
         {
-            _dbContext = dbContext;
+            _pollService = pollService;
+            _logger = logger;
         }
 
-        // GET: Poll
-        public ActionResult Index()
+        [HttpGet]
+        public async Task<IActionResult> Index()
         {
-            var polls = _dbContext.Polls.ToList();
+            var polls = await _pollService.GetAllPollsAsync();
             return View(polls);
         }
 
-        // GET: Poll/Create
-        public ActionResult Create()
+        [HttpGet]
+        public IActionResult Create()
         {
-            return View();
-        }
-
-        // POST: Poll/Create
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(Poll poll)
-        {
-            if (ModelState.IsValid)
-            {
-                _dbContext.Polls.Add(poll);
-                _dbContext.SaveChanges();
-                return RedirectToAction("Index", "Home"); // Redirect to home page 
-            }
-
-            return View(poll);
-        }
-
-        // GET: Poll/AddQuestions/2
-        public ActionResult AddQustions(int id)
-        {
-            var poll = _dbContext.Polls.Find(id);
-            if (poll == null)
-                return NotFound();
-
-            return View(poll);
+            return View(new PollViewModel());
         }
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddQuestions(int id, List<Question> questions)
+        public async Task<IActionResult> Create(PollViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var poll = _dbContext.Polls.Find(id);
-                if (poll == null)
-                    return NotFound();
-
-                foreach (var question in questions)
+                var poll = new Poll
                 {
-                    poll.Questions.Add(question);
-                }
-
-                _dbContext.SaveChanges();
-
-                return RedirectToAction("Index");
+                    Title = model.Title,
+                    Questions = model.Questions.Select(q => new Question
+                    {
+                        Text = q.Text,
+                        Answers = q.Answers.Select(a => new Answer { Text = a.Text}).ToList()
+                    }).ToList()
+                };
+                await _pollService.AddPollAsync(poll);
+                return RedirectToAction("Index", "Home");
             }
 
-            return View();
+            return View(model);
         }
+
+        
     }
 }

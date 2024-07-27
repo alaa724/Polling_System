@@ -19,13 +19,12 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\Polling.BusinessLogicLayer\Polling.BusinessLogicLayer.csproj" />
-    <ProjectReference Include="..\Polling.DataAccessLayer\Polling.DataAccessLayer.csproj" />
+    <Folder Include="wwwroot\lib\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="wwwroot\lib\" />
-    <Folder Include="wwwroot\images\" />
+    <ProjectReference Include="..\Polling.BusinessLogicLayer\Polling.BusinessLogicLayer.csproj" />
   </ItemGroup>
 
 </Project>

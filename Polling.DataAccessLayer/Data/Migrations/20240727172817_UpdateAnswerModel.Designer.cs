@@ -12,8 +12,8 @@ using Polling.DataAccessLayer.Data;
 namespace Polling.DataAccessLayer.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240723130717_InitialCreate")]
-    partial class InitialCreate
+    [Migration("20240727172817_UpdateAnswerModel")]
+    partial class UpdateAnswerModel
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -32,6 +32,9 @@ namespace Polling.DataAccessLayer.Data.Migrations
                         .HasColumnType("int");
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<bool>("IsSelected")
+                        .HasColumnType("bit");
 
                     b.Property<int>("QuestionId")
                         .HasColumnType("int");
@@ -220,7 +223,7 @@ namespace Polling.DataAccessLayer.Data.Migrations
                     b.ToTable("AspNetUserTokens", (string)null);
                 });
 
-            modelBuilder.Entity("Polling.DataAccessLayer.Models.ApplicationUser", b =>
+            modelBuilder.Entity("Polling.DataAccessLayer.Models.ApplicationUsers", b =>
                 {
                     b.Property<string>("Id")
                         .HasColumnType("nvarchar(450)");
@@ -233,6 +236,7 @@ namespace Polling.DataAccessLayer.Data.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Email")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -277,6 +281,7 @@ namespace Polling.DataAccessLayer.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("UserName")
+                        .IsRequired()
                         .HasMaxLength(256)
                         .HasColumnType("nvarchar(256)");
 
@@ -295,13 +300,13 @@ namespace Polling.DataAccessLayer.Data.Migrations
 
             modelBuilder.Entity("DataAccessLayer.Models.Answer", b =>
                 {
-                    b.HasOne("DataAccessLayer.Models.Question", "Questions")
+                    b.HasOne("DataAccessLayer.Models.Question", "Question")
                         .WithMany("Answers")
                         .HasForeignKey("QuestionId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("Questions");
+                    b.Navigation("Question");
                 });
 
             modelBuilder.Entity("DataAccessLayer.Models.Question", b =>
@@ -326,7 +331,7 @@ namespace Polling.DataAccessLayer.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserClaim<string>", b =>
                 {
-                    b.HasOne("Polling.DataAccessLayer.Models.ApplicationUser", null)
+                    b.HasOne("Polling.DataAccessLayer.Models.ApplicationUsers", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -335,7 +340,7 @@ namespace Polling.DataAccessLayer.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserLogin<string>", b =>
                 {
-                    b.HasOne("Polling.DataAccessLayer.Models.ApplicationUser", null)
+                    b.HasOne("Polling.DataAccessLayer.Models.ApplicationUsers", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -350,7 +355,7 @@ namespace Polling.DataAccessLayer.Data.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("Polling.DataAccessLayer.Models.ApplicationUser", null)
+                    b.HasOne("Polling.DataAccessLayer.Models.ApplicationUsers", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -359,7 +364,7 @@ namespace Polling.DataAccessLayer.Data.Migrations
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityUserToken<string>", b =>
                 {
-                    b.HasOne("Polling.DataAccessLayer.Models.ApplicationUser", null)
+                    b.HasOne("Polling.DataAccessLayer.Models.ApplicationUsers", null)
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)

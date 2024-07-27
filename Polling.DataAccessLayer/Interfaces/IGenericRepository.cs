@@ -5,18 +5,14 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Polling.BusinessLogicLayer.Interfaces
+namespace Polling.DataAccessLayer.Interfaces
 {
     public interface IGenericRepository<T> where T : BaseModel
     {
         Task<IEnumerable<T>> GetAllAsync();
-
-        Task<T> GetAsync(int id);
-
-        void Add(T entity);
-
+        Task<T> GetByIdAsync(int id);
+        Task AddAsync(T entity);
         void Update(T entity);
-
-        void Delete(T entity);
+        void Remove(T entity);
     }
 }

@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace Polling.DataAccessLayer.Models
 {
-    public class ApplicationUser : IdentityUser
+    public class ApplicationUsers : IdentityUser
     {
         public string UserName { get; set; }
         public string FName { get; set; }

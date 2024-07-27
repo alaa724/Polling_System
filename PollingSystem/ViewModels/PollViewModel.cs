@@ -5,10 +5,8 @@ namespace PollingSystem.ViewModels
 {
     public class PollViewModel
     {
-        public int Id { get; set; }
-
-        [Required(ErrorMessage ="Title is required !) ")]
+        public int PollId { get; set; }
         public string Title { get; set; }
-        public ICollection<Question> Questions { get; set; }
+        public List<QuestionViewModel> Questions { get; set; }
     }
 }

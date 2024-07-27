@@ -9,6 +9,8 @@ namespace PollingSystem.Helpers
         public MappingProfiles()
         {
             CreateMap<PollViewModel, Poll>().ReverseMap();
+
+            CreateMap<QuestionViewModel , Question>().ReverseMap();
         }
     }
 }

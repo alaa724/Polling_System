@@ -1,17 +1,29 @@
 ﻿@model IEnumerable<Poll>
 
+<h2>Polls</h2>
+
+<p>
+    <a asp-action="Create" class="btn btn-primary">Create New Poll</a>
+</p>
 <table class="table">
-    <tr>
-        <th>Title</th>
-        <th>Actions</th>
-    </tr>
-    @foreach (var item in Model)
-    {
+    <thead>
         <tr>
-            <td>@item.Title</td>
-            <td>
-                @Html.ActionLink("View Questions", "AddQuestions", new { id = item.Id }, new { @class = "btn btn-info btn-sm" })
-            </td>
+            <th>Id</th>
+            <th>Title</th>
+            <th>Actions</th>
         </tr>
-    }
+    </thead>
+    <tbody>
+        @foreach (var poll in Model)
+        {
+            <tr>
+                <td>@poll.Id</td>
+                <td>@poll.Title</td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@poll.Id" class="btn btn-primary">Edit</a>
+                    <a asp-action="Delete" asp-route-id="@poll.Id" class="btn btn-danger">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

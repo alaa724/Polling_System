@@ -8,13 +8,13 @@ namespace PollingSystem.Controllers
     public class AccountController : Controller
     {
         private readonly IConfiguration _configuration;
-        private readonly UserManager<ApplicationUser> _userManager;
-        private readonly SignInManager<ApplicationUser> _signInManager;
+        private readonly UserManager<ApplicationUsers> _userManager;
+        private readonly SignInManager<ApplicationUsers> _signInManager;
 
         public AccountController(
             IConfiguration configuration,
-            UserManager<ApplicationUser> userManager,
-            SignInManager<ApplicationUser> signInManager)
+            UserManager<ApplicationUsers> userManager,
+            SignInManager<ApplicationUsers> signInManager)
         {
             _configuration = configuration;
             _userManager = userManager;
@@ -37,7 +37,7 @@ namespace PollingSystem.Controllers
                 var user = await _userManager.FindByNameAsync(model.UserName);
                 if (user is null)
                 {
-                    user = new ApplicationUser()
+                    user = new ApplicationUsers()
                     {
                         UserName = model.UserName,
                         FName = model.FirstName,

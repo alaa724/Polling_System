@@ -17,7 +17,7 @@ namespace Polling.DataAccessLayer.Data.Configurations
                 .IsRequired();
 
             builder.HasMany(Q => Q.Answers)
-                .WithOne(A => A.Questions)
+                .WithOne(A => A.Question)
                 .HasForeignKey(A => A.QuestionId);
         }
     }

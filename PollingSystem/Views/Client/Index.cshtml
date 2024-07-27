@@ -1,0 +1,14 @@
+﻿@model List<PollViewModel>
+
+<h2>Available Polls</h2>
+<br />
+
+<ul>
+    @foreach (var poll in Model)
+    {
+        <li>
+            @Html.DisplayFor(modelItem => poll.Title)
+            <a asp-action="AnswerPoll" asp-route-id="@poll.PollId">Answer</a>
+        </li>
+    }
+</ul>

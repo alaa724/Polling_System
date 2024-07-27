@@ -5,9 +5,9 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Polling.BusinessLogicLayer.Interfaces
+namespace Polling.DataAccessLayer.Interfaces
 {
-    internal interface IPollInterface : IGenericRepository<Poll>
+    public interface IQuestionRepository : IGenericRepository<Question>
     {
     }
 }

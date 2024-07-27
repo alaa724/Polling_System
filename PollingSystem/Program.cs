@@ -25,7 +25,7 @@ namespace PollingSystem
 
             webApplicationBuilder.Services.AddAutoMapper(M => M.AddProfile(new MappingProfiles()));
 
-            webApplicationBuilder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
+            webApplicationBuilder.Services.AddIdentity<ApplicationUsers, IdentityRole>(options =>
             {
                 options.Password.RequiredUniqueChars = 2;
                 options.Password.RequireDigit = true;
@@ -43,17 +43,15 @@ namespace PollingSystem
 
 
             })
-              .AddEntityFrameworkStores<ApplicationDbContext>();
+              .AddEntityFrameworkStores<ApplicationDbContext>()
+              .AddDefaultTokenProviders();
 
             // Configure authentication
             webApplicationBuilder.Services.ConfigureApplicationCookie(options =>
             {
                 options.LoginPath = "/Account/SignIn";
-                options.AccessDeniedPath = "/Account/AccessDenied";
-                options.Cookie.HttpOnly = true;
-                options.Cookie.SameSite = SameSiteMode.Strict;
-                options.Cookie.SecurePolicy = CookieSecurePolicy.SameAsRequest;
-                options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+                options.ExpireTimeSpan = TimeSpan.FromDays(1);
+                options.AccessDeniedPath = "/Home/Error";
             });
 
 

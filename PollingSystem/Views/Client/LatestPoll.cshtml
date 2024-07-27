@@ -1,0 +1,13 @@
+﻿@model Poll
+
+<h2>Latest Poll</h2>
+
+@if (Model == null)
+{
+    <p>No polls available.</p>
+}
+else
+{
+    <h3>@Model.Title</h3>
+    <a class="btn btn-primary" href="@Url.Action("AnswerPoll", "Client", new { id = Model.Id })">Answer Poll</a>
+}
