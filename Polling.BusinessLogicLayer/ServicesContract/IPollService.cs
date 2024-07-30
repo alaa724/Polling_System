@@ -10,8 +10,10 @@ namespace Polling.BusinessLogicLayer.ServicesContract
     public interface IPollService
     {
         Task<IEnumerable<Poll>> GetAllPollsAsync();
-        Task<Poll> GetPollByIdAsync(int id);
+        Task<Poll?> GetPollByIdAsync(int id);
         Task<Poll?> GetLatestPollAsync();
+        Task SaveAnswerAsync(int pollId, int questionId, int answerId);
+        Task SavePollAsync(Poll poll);
         Task AddPollAsync(Poll poll);
         Task UpdatePollAsync(Poll poll);
         Task DeletePollAsync(int id);

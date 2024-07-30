@@ -1,4 +1,6 @@
-﻿namespace PollingSystem.ViewModels
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PollingSystem.ViewModels
 {
     public class AnswerViewModel
     {

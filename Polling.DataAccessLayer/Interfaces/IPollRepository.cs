@@ -9,5 +9,7 @@ namespace Polling.DataAccessLayer.Interfaces
 {
     public interface IPollRepository : IGenericRepository<Poll>
     {
+        IQueryable<Poll> GetAllWithQuestionsAndAnswers();
+
     }
 }

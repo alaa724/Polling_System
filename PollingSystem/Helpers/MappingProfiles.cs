@@ -10,7 +10,13 @@ namespace PollingSystem.Helpers
         {
             CreateMap<PollViewModel, Poll>().ReverseMap();
 
+            CreateMap<UserPollViewModel, Poll>().ReverseMap();
+
             CreateMap<QuestionViewModel , Question>().ReverseMap();
+            CreateMap<UserQuestionViewModel , Question>().ReverseMap();
+
+            CreateMap<AnswerViewModel , Answer>().ReverseMap();
+            CreateMap<UserAnswerViewModel , Answer>().ReverseMap();
         }
     }
 }

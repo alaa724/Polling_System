@@ -14,5 +14,6 @@ namespace Polling.DataAccessLayer.Repositories
         public AnswerRepository(ApplicationDbContext dbContext) : base(dbContext)
         {
         }
+
     }
 }

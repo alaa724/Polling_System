@@ -5,6 +5,6 @@ namespace DataAccessLayer.Models
     public class Poll : BaseModel
     {
         public string Title { get; set; }
-        public ICollection<Question> Questions { get; set; }
+        public ICollection<Question> Questions { get; set; } = new HashSet<Question>();
     }
 }

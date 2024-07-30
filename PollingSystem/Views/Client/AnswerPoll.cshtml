@@ -1,16 +1,17 @@
-﻿@model PollViewModel
+﻿@model UserPollViewModel
 
-<h2>Answer Poll</h2>
+<h2>@Model.PollTitle</h2>
 
 <form asp-action="AnswerPoll" method="post">
+    <div asp-validation-summary="ModelOnly" class="text-danger"></div>
     @foreach (var question in Model.Questions)
     {
         <div class="form-group">
-            <label>@question.Text</label>
+            <label>@question.QuestionText</label>
             @foreach (var answer in question.Answers)
             {
                 <div>
-                    <input type="radio" name="answer_@question.Id" value="@answer.Id" /> @answer.Text
+                    <input type="radio" name="Questions[@Model.Questions.IndexOf(question)].Answers" value="@answer.AnswerId" @(answer.IsSelected ? "checked" : "") /> @answer.AnswerText
                 </div>
             }
         </div>

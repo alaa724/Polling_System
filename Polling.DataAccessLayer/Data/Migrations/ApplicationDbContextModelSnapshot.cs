@@ -44,7 +44,7 @@ namespace Polling.DataAccessLayer.Data.Migrations
 
                     b.HasIndex("QuestionId");
 
-                    b.ToTable("Answers");
+                    b.ToTable("Answers", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLayer.Models.Poll", b =>
@@ -62,7 +62,7 @@ namespace Polling.DataAccessLayer.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Polls");
+                    b.ToTable("Polls", (string)null);
                 });
 
             modelBuilder.Entity("DataAccessLayer.Models.Question", b =>
@@ -84,7 +84,7 @@ namespace Polling.DataAccessLayer.Data.Migrations
 
                     b.HasIndex("PollId");
 
-                    b.ToTable("Questions");
+                    b.ToTable("Questions", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>

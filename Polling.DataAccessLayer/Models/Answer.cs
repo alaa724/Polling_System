@@ -8,6 +8,6 @@ namespace DataAccessLayer.Models
 
         public bool IsSelected { get; set; }
         public int QuestionId { get; set; }
-        public Question Question { get; set; }
+        public Question Question { get; set; } 
     }
 }
