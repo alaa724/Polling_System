@@ -4,7 +4,9 @@
 
 <form asp-action="AnswerPoll" method="post">
     <div asp-validation-summary="ModelOnly" class="text-danger"></div>
-    @foreach (var question in Model.Questions)
+    @if (Model.Questions != null && Model.Questions.Any())
+    {
+        @foreach (var question in Model.Questions)
     {
         <div class="form-group">
             <label>@question.QuestionText</label>
@@ -15,6 +17,7 @@
                 </div>
             }
         </div>
+    }
     }
     <div class="form-group">
         <input type="submit" value="Submit" class="btn btn-primary" />
